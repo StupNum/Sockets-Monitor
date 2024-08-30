@@ -14,6 +14,10 @@
 - Color indication showing packet flow and port changes
 - Adaptive resizing of the console based on the number of ports and additional socket information, according to 16:9 aspect ratio
 
+## Demo
+![Demo gif display nothing](docs/demo_display_nothing.gif)
+![Demo gif display all](docs/demo_display_all.gif)
+
 ## Using
 Set the constants for the number of sockets to monitor, the initial port from which the socket pool will be allocated. Then create an object of ConsoleManager class, optionally set flags to display additional information (more details below). 
 
@@ -49,8 +53,6 @@ Color indication was made for easy perception. When a packet is received, the cl
 * if it is more than 10 times, the number will light up purple.
 
 Port change control period is 5 seconds.
-
-## Demo
 
 ## TODO
 
