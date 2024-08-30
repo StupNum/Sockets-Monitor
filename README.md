@@ -12,34 +12,47 @@
 ## Features
 - High-speed packet processing in asynchronous mode using completion port
 - Color indication showing packet flow and port changes
+- Adaptive resizing of the console based on the number of ports and additional socket information, according to 16:9 aspect ratio
 
 ## Using
 Set the constants for the number of sockets to monitor, the initial port from which the socket pool will be allocated. Then create an object of ConsoleManager class, optionally set flags to display additional information (more details below). 
 
-```cpp – C++
+```cpp
 constexpr int port_count = 256;
 constexpr int start_port_number = 20000;
 ConsoleManager console_manager(port_count, ConsoleManager::DisplayNothing);
 ```
 
  Then create an object of the NetworkManager class, with the same parameters, and pass the mutex of the console_manager object through the GetMutex getter. Next, set the network_manager object to a shared vector that stores the port records of received packets, so that network_manager can write data to them.
-```cpp – C++
+```cpp
 NetworkManager network_manager(port_count, start_port_number, console_manager.GetMutex());
 network_manager.SetPortPairs(console_manager.GetPortPairs());
 ```
 
 Next, initialize the open ports entries in the console_manager object using the GetOpenedSocketsPorts getter of the network_manager object.
-```cpp – C++
+```cpp
 console_manager.InitEntries(network_manager.GetOpenedSocketsPorts());
 ```
 
 Next, start ListenSockets of the network_manager object in a separate thread, and call the console update function of the console_manager in the main thread (or also in a separate thread, if required)
-```cpp – C++
+```cpp
 std::thread network_manager_thread(&NetworkManager::ListenSockets, &network_manager);
 network_manager_thread.detach();
 
 console_manager.StartConsoleUpdateLoop();
 ```
+
+## Color indication
+Color indication was made for easy perception. When a packet is received, the client port number lights up green for 1 second. When the port is changed, the color indication works as follows: 
+* If the port is changed 1 time in the last 5 seconds, the host port number will light up yellow,
+* if it is changed more than once, the number will light up red,
+* if it is more than 10 times, the number will light up purple.
+
+Port change control period is 5 seconds.
+
+## Demo
+
+## TODO
 
 ## Getting Started
 1. Clone the repository
