@@ -36,6 +36,7 @@ std::mutex& ConsoleManager::GetMutex() {
 
 bool ConsoleManager::InitConsole() {
     console_handle_ = GetStdHandle(STD_OUTPUT_HANDLE);
+    SetConsoleTitleW(L"Sockets Monitor");
 
     SetCurrentConsoleFontEx(console_handle_, 0, &console_font_);
     UpdateConsoleCharachterAspectRatio();
