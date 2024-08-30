@@ -15,8 +15,8 @@
 - Adaptive resizing of the console based on the number of ports and additional socket information, according to 16:9 aspect ratio
 
 ## Demo
-![Demo gif display nothing](https://github.com/StupNum/Sockets-Monitor/docs/demo_display_nothing.gif)
-![Demo gif display all]([docs/demo_display_all.gif](https://github.com/StupNum/Sockets-Monitor/docs/demo_display_nothing.gif))
+![Demo gif display nothing](https://github.com/StupNum/Sockets-Monitor/raw/master/docs/demo_display_nothing.gif)
+![Demo gif display all](https://github.com/StupNum/Sockets-Monitor/docs/demo_display_all.gif)
 
 ## Using
 Set the constants for the number of sockets to monitor, the initial port from which the socket pool will be allocated. Then create an object of ConsoleManager class, optionally set flags to display additional information (more details below). 
