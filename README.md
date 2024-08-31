@@ -15,7 +15,20 @@
 - Adaptive resizing of the console based on the number of ports and additional socket information, according to 16:9 aspect ratio
 
 ## Demo
+The following gifs show how the program works in different display modes.
+
+The same number of packets are sent to each socket, but from different ports. For each socket group the port is changed different number of times per second to show how the color indication works.
+
+This gif shows how the program works in DisplayNothing mode
 ![Demo gif display nothing](docs/demo_display_nothing.gif)
+
+This gif shows the program working in DisplayAll mode.
+It shows additional information after each port entry:
+1.  the number of port changes per second,
+2.  the total number of port changes,
+3.  the number of packets since monitoring began,
+4.  the number of packets per second.
+   
 ![Demo gif display all](docs/demo_display_all.gif)
 
 ## Using
@@ -56,6 +69,9 @@ Port change control period is 5 seconds.
 
 ## TODO
 
+ - [ ] Add automatic adaptation of display and font parameters when the console is resized
+ - [ ] Implement runtime socket pool and port records management capabilities
+ - [ ] Add a function to view the port change history for each socket
 ## Getting Started
 1. Clone the repository
 2. Build with C++17 or higher
