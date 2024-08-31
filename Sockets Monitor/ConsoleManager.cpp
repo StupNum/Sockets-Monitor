@@ -346,7 +346,7 @@ void ConsoleManager::UpdateEntries() {
         while (!port_entry.recieved_packets_for_second.empty() && time - port_entry.recieved_packets_for_second.front() >= 1000) {
             port_entry.recieved_packets_for_second.pop_front();
         }
-        
+
         int current_client_port = port_entry.client_port;
         for (auto const& port_time_pair : client_ports_and_time_vec) {
             // Добавляем в очередь только те порты, которые менялись
@@ -388,7 +388,7 @@ void ConsoleManager::UpdateEntries() {
             port_entry.host_port_bg_color = ConsoleColors::BackgroundColor::kBgBlack;
         }
         if (port_entry.count_port_changes_for_period == 1) {
-            port_entry.host_port_text_color = ConsoleColors::TextColor::kGreen;
+            port_entry.host_port_text_color = ConsoleColors::TextColor::kBlack;
             port_entry.host_port_bg_color = ConsoleColors::BackgroundColor::kBgYellow;
         }
         if (port_entry.count_port_changes_for_period > 1) {
@@ -418,17 +418,22 @@ void ConsoleManager::WritePortsEntriesToBuffer() {
                 int number_color = ConsoleColors::TextColor::kWhite | ConsoleColors::BackgroundColor::kBgBlack,
                 bool fill_spaces = 0) {
                     wchar_t fill_symbol = (fill_spaces) ? L' ' : kFillSymbol;
-                    temp_string = std::to_wstring(number_to_write);
-                    if (temp_string.size() > max_digits_count) {
-                        temp_string.resize(max_digits_count);
-                    }
-                    else {
-                        if (align_side == 'L') {
-                            temp_string.append(max_digits_count - temp_string.size(), fill_symbol);
+                    if (number_to_write != -1) {
+                        temp_string = std::to_wstring(number_to_write);
+                        if (temp_string.size() > max_digits_count) {
+                            temp_string.resize(max_digits_count);
                         }
                         else {
-                            temp_string.insert(0, max_digits_count - temp_string.size(), fill_symbol);
+                            if (align_side == 'L') {
+                                temp_string.append(max_digits_count - temp_string.size(), fill_symbol);
+                            }
+                            else {
+                                temp_string.insert(0, max_digits_count - temp_string.size(), fill_symbol);
+                            }
                         }
+                    }
+                    else {
+                        temp_string = (align_side == L'L') ? L"Wait " : L" Wait";
                     }
                     for (int i = 0; i < max_digits_count; i++, current_write_buffer_index++) {
                         buffer_char_info_array_[current_write_buffer_index].Char.UnicodeChar = temp_string[i];
